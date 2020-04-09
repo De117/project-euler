@@ -4,10 +4,11 @@ from functools import reduce
 from typing import Union, Dict, Iterable
 
 def is_prime(N: int):
-    upper_bound = math.ceil(N**0.5)
     if N <= 1: return False
     elif N <= 3: return True
     elif N % 2 == 0: return False
+
+    upper_bound = math.ceil(N**0.5)
 
     for i in range(3, upper_bound+1, 2):
         if N % i == 0:
