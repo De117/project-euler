@@ -11,10 +11,6 @@
 
 -- Helper functions (mostly from problem 27):
 -- =========================================
-import Data.List (maximumBy)
-import Data.Ord (comparing)
-
-
 divisibleBy :: (Integral a) => a -> a -> Bool
 divisibleBy a b = (a `mod` b) == 0
 
