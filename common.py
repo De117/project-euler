@@ -69,16 +69,20 @@ class PrimeDecomposition:
                 N //= prime
 
 
-    def __eq__(other: "PrimeDecomposition"):
+    def __eq__(self, other: "PrimeDecomposition"):
         return self.N == other.N and self.coefficients == other.coefficients
 
 
-    def __and__(other: "PrimeDecomposition"):
+    def __and__(self, other: "PrimeDecomposition"):
         return PrimeDecomposition(self.coefficients & other.coefficients)
 
 
-    def __or__(other: "PrimeDecomposition"):
+    def __or__(self, other: "PrimeDecomposition"):
         return PrimeDecomposition(self.coefficients | other.coefficients)
+
+
+    def __repr__(self):
+        return f"PrimeDecomposition({self.N})"
 
 
     def get_proper_divisors(self):
