@@ -1,7 +1,99 @@
 import math, itertools
 from collections import Counter
 from functools import reduce
-from typing import Union, Dict, Iterable
+from typing import Union, Dict, Iterable, List, Iterator
+
+
+def sieve_segmented(upper_bound=math.inf, segment_size=1048576) -> Iterator[int]:
+    """Sieve of Erastothenes, segmented version.
+
+    Unlike the plain sieve, it reuses a fixed-size memory chunk for sieving.
+    Uses O(π(upper_bound)) memory.
+
+    Returns primes under `upper_bound`.
+    """
+
+    table = [0] * segment_size
+    table[0] = table[1] = 1  # Mark off 0 and 1
+
+    known_primes = {}
+
+    i_segment = 0
+    while True:
+        segment_base = i_segment * segment_size
+        segment_top = (i_segment + 1) * segment_size
+
+        if segment_base >= upper_bound:
+            break
+
+        if segment_top > upper_bound:  # Clip last segment to fit
+            segment_top = upper_bound
+
+
+        # Mark of all multiples of known primes
+        for p, next_multiple in known_primes.items():
+            i = next_multiple
+            while i < segment_top:
+                table[i - segment_base] = 1
+                i += p
+
+            known_primes[p] = i
+
+
+        # Proceed with standard algorithm
+        try:    prime = prime
+        except: prime = 1
+
+        while True:
+            # 1. get first prime in block
+            next_prime = max(prime + 1, segment_base)
+            while next_prime < segment_top and table[next_prime - segment_base]:
+                next_prime += 1
+            prime = next_prime
+
+            # (Is it really in the block? If no, there are no primes left in it.)
+            if prime == segment_top:
+                break
+            # Also, are we over the bound? Then we're already done.
+            if prime >= upper_bound:
+                break
+
+            # 2. mark off its multiples
+            i = prime * prime
+            while i < segment_top:
+                table[i - segment_base] = 1
+                i += prime
+            known_primes[prime] = i
+
+            yield prime
+
+        # Clear table before next iteration
+        for i in range(len(table)):
+            table[i] = 0
+
+# Construct a memoized iterator through all primes.
+_primes_iterator = sieve_segmented()
+_primes_cache = [next(_primes_iterator)]
+
+def primes(N=math.inf):
+    """Return first N primes"""
+
+    if N == math.inf:
+        # Fast lane for PyPy
+        yield from _primes_cache
+        while True:
+            prime = next(_primes_iterator)
+            _primes_cache.append(prime)
+            yield prime
+    else:
+        yield from itertools.islice(_primes_cache, min(N, len(_primes_cache)))
+        i = len(_primes_cache)
+        while i < N:
+            prime = next(_primes_iterator)
+            _primes_cache.append(prime)
+            yield prime
+            i += 1
+
 
 def is_prime(N: int):
     if N <= 1: return False
@@ -14,25 +106,6 @@ def is_prime(N: int):
         if N % i == 0:
             return False
     return True
-
-
-def primes(N=math.inf):
-    """Generate first N primes"""
-    if N <= 0: return
-    elif N == 1: yield 2;
-    elif N == 2: yield 2; yield 3; return
-    else: yield 2; yield 3
-
-    i = 3
-    last_prime = 3
-
-    while i <= N:
-        candidate = last_prime + 2
-        while not is_prime(candidate):
-            candidate += 2
-        yield candidate
-        last_prime = candidate
-        i += 1
 
 
 def product(l: Iterable):
@@ -60,7 +133,7 @@ class PrimeDecomposition:
             self.coefficients[N] = 1
             return
 
-        for prime in primes():  # all primes
+        for prime in primes():
             if N == 1:
                 break
 
