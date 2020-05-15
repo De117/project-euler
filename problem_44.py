@@ -26,8 +26,10 @@ def is_pentagonal(n: int):
 # One solution is to start from pairs with minimal D, and return the first such
 # pair. That means: a best-first search of an infinite number of pairs.
 #
-# But I've opted for another, simple-to-implement solution: search all pairs
-# with distance ≤ D, for a progressively increasing D.
+# I've opted for a similar, simple-to-implement solution: search all pairs
+# with distance ≤ D, for a progressively increasing D. With a bit of care,
+# it's essentially a coarser version of the best-first search, and ends up
+# checking more pairs than strictly necessary.
 
 if __name__ == "__main__":
 
@@ -35,23 +37,34 @@ if __name__ == "__main__":
     P = pentagonal
 
     # Suppose that P(n₀) is the largest pentagonal number we've seen.
-    n0 = 2000000
+    n0 = 100000
+                       # SPEEDUP:
+    a_next = [1] * n0  # Starting values for `a`; we remember them to prevent
+                       # double-checking any pair.
     while True:
         # Its nearest neighbour is P(n₀-1), at a distance od d₀ = 3n₀-2.
         d0 = 3*n0 - 2
 
         # We're interested in all pairs (k,l) such that P(k) - P(l) ≤ d₀.
         # We define k = l + a.
+        # From that condition, we can calculate an upper bound on `a`:
+        #
+        #     a ≤ ((1 - 6l) + sqrt(36l² - 12l - 47 + 72n₀))/6
+        #
+        # However, it's faster to use the condition directly.
 
         for l in range(1, n0):
-            a = 1
+            # `a` starts from 1, or picks up where we stopped last time
+            a = a_next[l]
             while P(l+a) - P(l) <= d0:
                 if is_pentagonal(P(l+a) + P(l)) and is_pentagonal(P(l+a) - P(l)):
                     found.append(P(l+a) - P(l))
                 a += 1
+            a_next[l] = a
 
         if found:
-            assert all(e > 0 for e in found)
             print(min(found))
             break
-        n0 += 1000000
+
+        n0 += 100000
+        a_next += [1] * 100000
