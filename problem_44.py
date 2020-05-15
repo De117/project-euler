@@ -12,7 +12,7 @@
 # Find the pair of pentagonal numbers, Pj and Pk, for which their
 # sum and difference are pentagonal and D = |Pk − Pj| is minimised;
 # what is the value of D?
-import sys
+
 
 def pentagonal(n: int):  # n >= 0
     return n*(3*n - 1) // 2
@@ -22,21 +22,36 @@ def is_pentagonal(n: int):
     rounded = round(origin)
     return origin - rounded < 1e-14 and n == pentagonal(rounded)
 
+# Obviously, we cannot search an infinite number of pairs of pentagonal numbers.
+# One solution is to start from pairs with minimal D, and return the first such
+# pair. That means: a best-first search of an infinite number of pairs.
+#
+# But I've opted for another, simple-to-implement solution: search all pairs
+# with distance ≤ D, for a progressively increasing D.
 
 if __name__ == "__main__":
 
-    i = 0
+    found = []
+    P = pentagonal
+
+    # Suppose that P(n₀) is the largest pentagonal number we've seen.
+    n0 = 2000000
     while True:
-        i += 1
-        P_i = pentagonal(i)
+        # Its nearest neighbour is P(n₀-1), at a distance od d₀ = 3n₀-2.
+        d0 = 3*n0 - 2
 
-        for j in range(1, i):
-            P_j = pentagonal(j)
+        # We're interested in all pairs (k,l) such that P(k) - P(l) ≤ d₀.
+        # We define k = l + a.
 
-            if is_pentagonal(P_i + P_j) and is_pentagonal(P_i - P_j):
-                print(abs(P_j - P_i))
-                sys.exit(0)
+        for l in range(1, n0):
+            a = 1
+            while P(l+a) - P(l) <= d0:
+                if is_pentagonal(P(l+a) + P(l)) and is_pentagonal(P(l+a) - P(l)):
+                    found.append(P(l+a) - P(l))
+                a += 1
 
-    # The solution is (7042750, 1560090) with difference 5482660, and this
-    # finds it... But there is no proof that it's indeed the minimal one,
-    # and the program is therefore not (yet) correct.
+        if found:
+            assert all(e > 0 for e in found)
+            print(min(found))
+            break
+        n0 += 1000000
