@@ -17,7 +17,7 @@
 import math
 
 def triangle_numbers(less_than=math.inf):
-    n = 0
+    n = 1
     last_number = 0
     while last_number < less_than:
         last_number = n * (n + 1) // 2
