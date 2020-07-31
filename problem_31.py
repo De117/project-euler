@@ -73,7 +73,7 @@ def dynamic_combinations(target_amount):
                     c = tuple(sorted(c.items()))
                     # add to union
                     union.add(c)
-        
+
         # "untuplify" to get back dicts
         combinations_for[amount] = [dict(tup) for tup in union]
 

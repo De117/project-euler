@@ -3,7 +3,7 @@
 --
 -- Surprisingly there are only three numbers that can be
 -- written as the sum of fourth powers of their digits:
--- 
+--
 --     1634 = 1⁴ + 6⁴ + 3⁴ + 4⁴
 --     8208 = 8⁴ + 2⁴ + 0⁴ + 8⁴
 --     9474 = 9⁴ + 4⁴ + 7⁴ + 4⁴

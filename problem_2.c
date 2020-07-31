@@ -25,7 +25,7 @@ int main() {
         fib_prev = fib_curr;
         fib_curr = next;
     }
-    
+
     printf("Sum of even Fibonacci numbers under four million is %d\n", sum);
 
     return 0;
