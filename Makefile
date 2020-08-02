@@ -9,6 +9,18 @@ all: *.c *.cpp *.hs
 	g++ problem_5.cpp -O2 -o problem_35
 	g++ problem_31.cpp -O2 -o problem_31
 
+	ghc problem_1.hs -O2 -o problem_1
+	ghc problem_2.hs -O2 -o problem_2
+	ghc problem_3.hs -O2 -o problem_3
+	ghc problem_4.hs -O2 -o problem_4
+	ghc problem_5.hs -O2 -o problem_5
+	ghc problem_6.hs -O2 -o problem_6
+	ghc problem_7.hs -O2 -o problem_7
+	ghc problem_8.hs -O2 -o problem_8
+	ghc problem_9.hs -O2 -o problem_9
+	ghc problem_10.hs -O2 -o problem_10
+	ghc problem_11.hs -O2 -o problem_11
+	ghc problem_12.hs -O2 -o problem_12
 	ghc problem_27.hs -O2 -o problem_27
 	ghc problem_28.hs -O2 -o problem_28
 	ghc problem_29.hs -O2 -o problem_29
