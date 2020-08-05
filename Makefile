@@ -21,6 +21,13 @@ all: *.c *.cpp *.hs
 	ghc problem_10.hs -O2 -o problem_10
 	ghc problem_11.hs -O2 -o problem_11
 	ghc problem_12.hs -O2 -o problem_12
+	ghc problem_13.hs -O2 -o problem_13
+	ghc problem_14.hs -O2 -o problem_14
+	ghc problem_15.hs -O2 -o problem_15
+	ghc problem_16.hs -O2 -o problem_16
+	ghc problem_17.hs -O2 -o problem_17
+	ghc problem_18.hs -O2 -o problem_18
+	ghc problem_19.hs -O2 -o problem_19
 	ghc problem_27.hs -O2 -o problem_27
 	ghc problem_28.hs -O2 -o problem_28
 	ghc problem_29.hs -O2 -o problem_29
@@ -38,7 +45,7 @@ all: *.c *.cpp *.hs
 clean:
 
 	rm -rf __pycache__
-	rm -f problem_??.hi  # Haskell cache
+	rm -f Common.hi problem_??.hi  # Haskell cache
 	# Clean all executables and object files
 	fish -c '\
 	for FILE in (ls);                                                                             \
