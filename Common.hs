@@ -8,8 +8,11 @@ module Common
 , decompose
 , recompose
 , intersect
+, divisors
 , properDivisors
 ) where
+
+import Data.List (delete)
 
 
 divisibleBy :: (Integral a) => a -> a -> Bool
@@ -95,10 +98,16 @@ intersect x y = PrimeDecomposition (dot' (unbox x) (unbox y))
             | otherwise = y:dot' (x:xs) ys
 
 
-properDivisors :: (Integral a) => PrimeDecomposition a -> [a]
-properDivisors (PrimeDecomposition []) = []
-properDivisors (PrimeDecomposition (x:xs))
+divisors :: (Integral a) => PrimeDecomposition a -> [a]
+divisors (PrimeDecomposition []) = [1]
+divisors (PrimeDecomposition (x:xs))
     | null xs   = factors x
-    | otherwise = [f * d | f <- factors x, d <- properDivisors (PrimeDecomposition xs)]
+    | otherwise = [f * d | f <- factors x, d <- divisors (PrimeDecomposition xs)]
     where
         factors (b, e) = [b^i | i <- [0..e]]
+
+
+properDivisors :: (Integral a) => PrimeDecomposition a -> [a]
+properDivisors n = delete (maximum divisorList) divisorList
+    where
+        divisorList = divisors n
