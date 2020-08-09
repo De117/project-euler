@@ -4,7 +4,7 @@ module Common
 , isPrime
 , primes
 , digits
-
+, fromDigits
 , decompose
 , recompose
 , intersect
@@ -39,6 +39,9 @@ digits n = _digits n []
     where
         _digits 0 xs = xs
         _digits n xs = _digits (n `div` 10) ((n `mod` 10):xs)
+
+fromDigits :: Integral a => [a] -> a
+fromDigits = foldl1 (\a b -> a*10 + b)
 
 
 

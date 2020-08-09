@@ -39,10 +39,14 @@ all: *.c *.cpp *.hs
 	ghc problem_28.hs -O2 -o problem_28
 	ghc problem_29.hs -O2 -o problem_29
 	ghc problem_30.hs -O2 -o problem_30
+	ghc problem_31.hs -O2 -o problem_31
 	ghc problem_32.hs -O2 -o problem_32
+	ghc problem_33.hs -O2 -o problem_33
 	ghc problem_34.hs -O2 -o problem_34
 	ghc problem_35.hs -O2 -o problem_35
 	ghc problem_36.hs -O2 -o problem_36
+	ghc problem_37.hs -O2 -o problem_37
+	ghc problem_38.hs -O2 -o problem_38
 	ghc problem_39.hs -O2 -o problem_39
 	ghc problem_40.hs -O2 -o problem_40
 	ghc problem_43.hs -O2 -o problem_43
