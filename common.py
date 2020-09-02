@@ -71,6 +71,8 @@ def sieve_segmented(upper_bound=math.inf, segment_size=1048576) -> Iterator[int]
         for i in range(len(table)):
             table[i] = 0
 
+        i_segment += 1
+
 # Construct a memoized iterator through all primes.
 _primes_iterator = sieve_segmented()
 _primes_cache = [next(_primes_iterator)]
