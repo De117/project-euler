@@ -139,9 +139,19 @@ class PrimeDecomposition:
             if N == 1:
                 break
 
+            modified = False
             while N % prime == 0:
                 self.coefficients[prime] += 1
                 N //= prime
+                modified = True
+
+            # For numbers with a large prime factor p₁, it takes a while
+            # to go through (=generate) all the primes ≤ p₁ checking for
+            # divisibility. It's faster to check directly (when applicable).
+            #
+            if modified and is_prime(N):
+                self.coefficients[N] += 1
+                break
 
 
     def __eq__(self, other: "PrimeDecomposition"):
