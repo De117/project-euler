@@ -10,6 +10,7 @@ module Common
 , intersect
 , divisors
 , properDivisors
+, toList
 ) where
 
 import Data.List (delete)
@@ -59,14 +60,13 @@ data PrimeDecomposition a = PrimeDecomposition [(a, a)] deriving (Show, Eq)
 decompose :: (Integral a) => a -> PrimeDecomposition a
 decompose n
     | n < 1     = error "n must be >= 1!"
-    | otherwise = PrimeDecomposition (decompose' n 0)
+    | otherwise = PrimeDecomposition (decompose' n primes)
     where
         decompose' 1 _ = []
-        decompose' n primeIndex
-            | n `divisibleBy` p  = (p, arity):decompose' (n `div` (p^arity)) (primeIndex + 1)
-            | otherwise          = decompose' n (primeIndex + 1)
+        decompose' n (p:primes')
+            | n `divisibleBy` p  = (p, arity):decompose' (n `div` (p^arity)) primes'
+            | otherwise          = decompose' n primes'
             where
-                p = primes !! primeIndex
                 arity = divisionArity n p
 
 -- Inverse of `decompose`
@@ -114,3 +114,7 @@ properDivisors :: (Integral a) => PrimeDecomposition a -> [a]
 properDivisors n = delete (maximum divisorList) divisorList
     where
         divisorList = divisors n
+
+-- for exporting
+toList :: (Integral a) => PrimeDecomposition a -> [(a,a)]
+toList = unbox
