@@ -66,6 +66,7 @@ all: *.c *.cpp *.hs
 	ghc problem_55.hs -O2 -o problem_55
 	ghc problem_56.hs -O2 -o problem_56
 	ghc problem_57.hs -O2 -o problem_57
+	ghc problem_58.hs -O2 -o problem_58
 
 
 clean:
