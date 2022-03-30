@@ -4,3 +4,5 @@
 
 haskell/*.o
 haskell/*.hi
+
+java/**/*.class
