@@ -1,13 +1,4 @@
-all: *.c *.cpp *.hs
-
-	gcc problem_1.c -O2 -o problem_1
-	gcc problem_2.c -O2 -o problem_2
-	gcc problem_3.c -O2 -o problem_3 -lm
-	gcc problem_4.c -O2 -o problem_4 -lm
-	gcc problem_6.c -O2 -o problem_6
-
-	g++ problem_5.cpp -O2 -o problem_35
-	g++ problem_31.cpp -O2 -o problem_31
+all: *.hs
 
 	ghc problem_1.hs -O2 -o problem_1
 	ghc problem_2.hs -O2 -o problem_2
@@ -72,7 +63,6 @@ all: *.c *.cpp *.hs
 
 clean:
 
-	rm -rf __pycache__
 	rm -f Common.hi problem_?.hi problem_??.hi  # Haskell cache
 	# Clean all executables and object files
 	fish -c '\
