@@ -24,17 +24,17 @@ def hexagonal(n: int):  # n >= 0
 def is_triangular(n: int):
     origin = ((1 + 8*n)**0.5 - 1) / 2
     rounded = round(origin)
-    return origin - rounded < 1e-14 and n == triangular(rounded)
+    return abs(origin - rounded) < 1e-14
 
 def is_pentagonal(n: int):
     origin = (1 + (1 + 24*n)**0.5) / 6
     rounded = round(origin)
-    return origin - rounded < 1e-14 and n == pentagonal(rounded)
+    return abs(origin - rounded) < 1e-14
 
 def is_hexagonal(n: int):
     origin = (1 + (1 + 8*n)**0.5) / 4
     rounded = round(origin)
-    return origin - rounded < 1e-14 and n == hexagonal(rounded)
+    return abs(origin - rounded) < 1e-14
 
 
 if __name__ == "__main__":
