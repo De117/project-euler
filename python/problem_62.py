@@ -10,7 +10,11 @@ import math, itertools
 
 def is_cube(n: int) -> bool:
     root = n**(1/3)
-    return math.isclose(root, round(root))
+    rounded = round(root)
+    # The second part of the check avoids cases like like
+    #  8012006010**(1/3) == 2001.0000007492497  # not 2001**3
+    #  8012006001**(1/3) == 2000.999999999999   # is 2001**3
+    return math.isclose(root, rounded) and rounded**3 == n
 
 i = 0
 while True:
