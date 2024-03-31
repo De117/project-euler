@@ -1,5 +1,5 @@
 # Problem 64 (Odd Period Square Roots)
-# ------------------------------------
+# ====================================
 #
 # All square roots are periodic when written as continued fractions and can be written in the form:
 #
