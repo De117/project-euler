@@ -87,12 +87,14 @@ def root_as_continued_fraction(n: int) -> tuple[int, list[int]]:
         raise ValueError(f"{n} has a rational root!")
 
 
-number_of_cycles_with_odd_period = 0
-for n in range(10_000+1):
-    try:
-        a0, cycle = root_as_continued_fraction(n)
-        if len(cycle) % 2 != 0:
-            number_of_cycles_with_odd_period += 1
-    except ValueError:
-        pass
-print(number_of_cycles_with_odd_period)
+if __name__ == "__main__":
+
+    number_of_cycles_with_odd_period = 0
+    for n in range(10_000+1):
+        try:
+            a0, cycle = root_as_continued_fraction(n)
+            if len(cycle) % 2 != 0:
+                number_of_cycles_with_odd_period += 1
+        except ValueError:
+            pass
+    print(number_of_cycles_with_odd_period)

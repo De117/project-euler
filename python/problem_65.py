@@ -67,10 +67,12 @@ def sum_continued_fraction(terms: list[int]) -> Fraction:
     return terms[0] + 1 / sum_continued_fraction(terms[1:])
 
 
-convergents = []
-terms = [next(e_fraction_terms)]
-for _ in range(100):
-    convergents.append(sum_continued_fraction(terms))
-    terms.append(next(e_fraction_terms))
+if __name__ == "__main__":
 
-print(sum(int(c) for c in str(convergents[99].numerator)))
+    convergents = []
+    terms = [next(e_fraction_terms)]
+    for _ in range(100):
+        convergents.append(sum_continued_fraction(terms))
+        terms.append(next(e_fraction_terms))
+
+    print(sum(int(c) for c in str(convergents[99].numerator)))
