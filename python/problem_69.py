@@ -21,17 +21,7 @@
 # It can be seen that n=6 produces a maximum n/Φ(n) for n ≤ 10.
 #
 # Find the value of n ≤ 1_000_000 for which n/Φ(n) is a maximum.
-from common import PrimeDecomposition
-from fractions import Fraction
-from functools import reduce
-import operator
+from common import euler_phi
 
-product = lambda xs: reduce(operator.mul, xs, 1)
-
-def euler_phi(n: int) -> int:
-    """Number of positive integers coprime to n."""
-    # For background, see: https://en.wikipedia.org/wiki/Euler%27s_totient_function
-    s = n * product(Fraction(p - 1, p) for p in PrimeDecomposition(n).coefficients.keys())
-    return int(s)
-
-print(max(range(1, 1_000_000+1), key=lambda n: n/euler_phi(n)))
+if __name__ == "__main__":
+    print(max(range(1, 1_000_000+1), key=lambda n: n/euler_phi(n)))

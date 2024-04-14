@@ -1,5 +1,6 @@
 import math, itertools
 from collections import Counter
+from fractions import Fraction
 from functools import reduce
 from typing import Union, Dict, Iterable, List, Iterator
 
@@ -188,3 +189,10 @@ class PrimeDecomposition:
         divisors = [product(e) for e in itertools.product(*factors)]
         # Proper divisors are all (positive) divisors except the number itself
         return sorted(divisors)[:-1]
+
+
+def euler_phi(n: int) -> int:
+    """Number of positive integers coprime to n."""
+    # For background, see: https://en.wikipedia.org/wiki/Euler%27s_totient_function
+    s = n * product(Fraction(p - 1, p) for p in PrimeDecomposition(n).coefficients.keys())
+    return int(s)
