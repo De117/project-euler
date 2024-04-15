@@ -1,6 +1,5 @@
 import math, itertools
 from collections import Counter
-from fractions import Fraction
 from functools import reduce
 from typing import Union, Dict, Iterable, List, Iterator
 
@@ -194,5 +193,4 @@ class PrimeDecomposition:
 def euler_phi(n: int) -> int:
     """Number of positive integers coprime to n."""
     # For background, see: https://en.wikipedia.org/wiki/Euler%27s_totient_function
-    s = n * product(Fraction(p - 1, p) for p in PrimeDecomposition(n).coefficients.keys())
-    return int(s)
+    return product(p**(k-1) * (p-1) for p, k in PrimeDecomposition(n).coefficients.items())
