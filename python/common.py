@@ -192,5 +192,15 @@ class PrimeDecomposition:
 
 def euler_phi(n: int) -> int:
     """Number of positive integers coprime to n."""
-    # For background, see: https://en.wikipedia.org/wiki/Euler%27s_totient_function
+    # Euler's totient function is a multiplicative function. That is,
+    #
+    #   φ(m*n) = φ(m)*φ(n) if m and n are relatively prime.
+    #
+    # Every number n can be decomposed to a product of powers of primes p_1...p_r,
+    # so
+    #   φ(n) = φ(p_1^k_1)  * ... * φ(p_r^k_r)
+    #        = φ(p_1)^k_1  * ... * φ(p_r)^k_r
+    #        = (p_1-1)^k_1 * ... * (p_r-1)^k_r
+    #
+    # For more, see: https://en.wikipedia.org/wiki/Euler%27s_totient_function
     return product(p**(k-1) * (p-1) for p, k in PrimeDecomposition(n).coefficients.items())
